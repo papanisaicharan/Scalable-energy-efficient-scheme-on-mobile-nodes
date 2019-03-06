@@ -1,0 +1,943 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hybrid-placement algo}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    complete coding is done based on the paper \href{SEES.pdf}{SEES}
+\#\#\#\# Saicharan
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}we need to connect to a GUI event loop. This tells IPython where (and how) to display plots.}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+\end{Verbatim}
+
+
+    \subsubsection{we need}\label{we-need}
+
+N - the total number of HN nodes
+
+Fs - scalability factor which define as the maximum number of nodes to
+be accommodated in a single zone
+
+L - length of area
+
+B - cardinality of local base station(LBS)
+
+n - number of heterogeneity level
+
+If N is the total number of nodes and n is the number of heterogeneity
+levels, then the network has n categories (types) of nodes: cate-1,
+cate-2, cate-3, ..., cate-n nodes with their cardinalities: N1t , N2t ,
+N3t , ..., Nnt and energy levels: E1t , E2t , E3t , ..., Ent
+respectively, where:
+
+\begin{verbatim}
+                        N1t > N2t > N3t > ⋯ > Nnt
+                        
+                        E1t < E2t < E3t < ⋯ < Ent
+                        
+\end{verbatim}
+
+The different levels of node energies are related according to the
+following formula, where the initial energy of cate-i nodes is alpha
+times more than that of cate-(i − 1):
+
+\begin{verbatim}
+                        Eit = E1t × (1 + (i − 1) × aplha)
+                        
+\end{verbatim}
+
+where alpha is constant. The number of cate-i nodes in the network is
+given by:
+
+\begin{verbatim}
+                        Nit = N × (beta − gamma1) × (beta − gamma2) × (beta − gamma3)×⋯× (beta − gammai)
+                        
+                        N1t + N2t + N3t + ⋯ + Nnt  = N
+                        
+\end{verbatim}
+
+alpha and betai are the primary and secondary parameters of
+heterogeneity in the Singh model respectively (Singh 2017), and are
+related according to the following formula:
+
+\begin{verbatim}
+        (beta − gamma1) × (1 + (beta − gamma2) × (1 + (beta − gamma3)×⋯× (1 + (beta − gamman)))) = 1
+\end{verbatim}
+
+and gammai is given by:
+
+\begin{verbatim}
+                        gammai = gammai−1 − 2 × theta
+\end{verbatim}
+
+where Θ(theta) is constant. The value of first secondary parameter
+gamma1 is predefined and must satisfy the following inequality:
+
+\begin{verbatim}
+                        gamma1 / (2 × (n − 1)) > Θ
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}taking inputs}
+        \PY{n}{N} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Enter N( the total number of HN nodes)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{Fs} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Enter Fs()}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{L} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Enter L(length of area)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{B} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Enter B(LBS)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{n} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Enter n(number of heterogeneity level)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}taking constants}
+        \PY{n}{alpha} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Enter alpha}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}beta = input(\PYZdq{}Enter beta\PYZdq{})}
+        \PY{n}{gamma} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Enter gamma}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}intial gamma will be given}
+        \PY{n}{theta} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Enter theta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}should validate a equation}
+        
+        \PY{n}{Einti} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Enter E1(initial energy)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{Etot} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{enter Etotal(total energy)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{Fs}\PY{p}{,}\PY{n}{L}\PY{p}{,}\PY{n}{B}\PY{p}{,}\PY{n}{n}\PY{p}{,}\PY{n}{alpha}\PY{p}{,}\PY{n}{gamma}\PY{p}{,}\PY{n}{theta}\PY{p}{,}\PY{n}{Einti}\PY{p}{,}\PY{n}{Etot}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}setting parameters are given based 4.2 section setting parameters}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Enter N( the total number of HN nodes)2000
+Enter Fs()20
+Enter L(length of area)200
+Enter B(LBS)12
+Enter n(number of heterogeneity level)5
+Enter alpha2
+Enter gamma0.4
+Enter theta0.025
+Enter E1(initial energy)0.5
+enter Etotal(total energy)0.5
+2000 20 200 12 5 2 0.4 0.025 0.5 0.5
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}we need to validate theta and gamma values and find beta constant}
+        \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{/}  \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{theta}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{proceed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{error in input values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            
+        \PY{c+c1}{\PYZsh{}first we need to find gammavalues for getting beta value}
+        \PY{n}{gammavalues} \PY{o}{=} \PY{p}{[}\PY{n}{gamma}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{}getting gamma values}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}gammai = gammai\PYZhy{}1 \PYZhy{} 2*theta}
+            \PY{n}{gammavalues}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{gammavalues}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{theta}\PY{p}{)}
+            
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{gammavalues}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}now we can proceed for beta values}
+        \PY{c+c1}{\PYZsh{}https://docs.scipy.org/doc/numpy/reference/generated/numpy.roots.html\PYZsh{}numpy.roots}
+        \PY{n}{product} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{gammavalues}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{product} \PY{o}{=} \PY{p}{[}\PY{n+nb}{float}\PY{p}{(}\PY{n}{product}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{product}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{}this represent an equation of coordinates of constant and beta}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{product}\PY{p}{)}
+        
+        \PY{n}{equ1} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{gamma}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{]}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{gammavalues}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{equ2} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{1.0} \PY{o}{\PYZhy{}} \PY{n}{gammavalues}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{]}
+                \PY{c+c1}{\PYZsh{}this represent an equation of coordinates of beta and constant}
+        
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{equ1}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{equ2}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{product}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{product}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{n}{j}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{equ1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{equ2}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print(equ1)}
+            \PY{n}{equ1}\PY{o}{.}\PY{n}{clear}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} removes all items from list (equivalent to del list[:])}
+            \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{product}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if}\PY{p}{(}\PY{n}{product}\PY{p}{[}\PY{n}{p}\PY{p}{]} \PY{o}{!=} \PY{l+m+mf}{0.0}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{equ1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{product}\PY{p}{[}\PY{n}{p}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}     print(equ1)}
+        \PY{c+c1}{\PYZsh{}     equ1 = product}
+        \PY{c+c1}{\PYZsh{}     print(equ1)}
+        
+        \PY{n}{product}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{product}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{product}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{roots}\PY{p}{(}\PY{n}{product}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}actually root should be the beta value}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+proceed
+[0.4, 0.35000000000000003, 0.30000000000000004, 0.25000000000000006, 0.20000000000000007, 0.15000000000000008]
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+[-3.575754999999999, -3.3335975, 10.580212499999996, 25.225625, 20.4125, 7.35, 1.0]
+[ 2.28135695+0.j         -0.94460355+0.60456808j -0.94460355-0.60456808j
+ -0.45753791+0.16955036j -0.45753791-0.16955036j -0.40935196+0.j        ]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}we have taken beta as 1 for building temporarly}
+        \PY{n}{beta} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{c+c1}{\PYZsh{}testing}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{alpha}\PY{p}{,}\PY{n}{beta}\PY{p}{,}\PY{n}{gamma}\PY{p}{,}\PY{n}{gammavalues}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{Fs}\PY{p}{,}\PY{n}{L}\PY{p}{,}\PY{n}{B}\PY{p}{,}\PY{n}{n}\PY{p}{,}\PY{n}{alpha}\PY{p}{,}\PY{n}{gamma}\PY{p}{,}\PY{n}{theta}\PY{p}{,}\PY{n}{Einti}\PY{p}{,}\PY{n}{Etot}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2 1 0.4 [0.4, 0.35000000000000003, 0.30000000000000004, 0.25000000000000006, 0.20000000000000007, 0.15000000000000008]
+2000 20 200 12 5 2 0.4 0.025 0.5 0.5
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{Nt} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{}indicate cardinality of n categories}
+        \PY{n}{Et} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{}indicate Energy of n categories}
+        
+            
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} we compute Nit and Eit and append them to Nt and Et,formulea are shown below}
+            \PY{c+c1}{\PYZsh{}(Einti * (1 + ((i − 1) * alpha)))}
+            \PY{n}{et} \PY{o}{=} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+            \PY{n}{et} \PY{o}{=} \PY{n}{et}\PY{o}{*}\PY{n}{alpha}
+            \PY{n}{et} \PY{o}{=} \PY{n}{et}\PY{o}{+}\PY{l+m+mi}{1}
+            \PY{n}{et} \PY{o}{=} \PY{n}{et}\PY{o}{*}\PY{n}{Einti}
+            \PY{n}{Et}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{et}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}Nit = N × (beta − gamma1) × (beta − gamma2) × (beta − gamma3)×⋯× (beta − gammai)}
+            \PY{n}{nt} \PY{o}{=} \PY{n}{N}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{nt} \PY{o}{=} \PY{n}{nt} \PY{o}{*}\PY{p}{(}\PY{n}{beta} \PY{o}{\PYZhy{}} \PY{n}{gammavalues}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+            \PY{n}{Nt}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{nt}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Et}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Nt}\PY{p}{)}
+        
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{n}{Nt} \PY{o}{=} \PY{p}{[}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{Nt}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{Nt}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Nt}\PY{p}{)}
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.5, 1.5, 2.5, 3.5, 4.5]
+[779.9999999999999, 545.9999999999999, 409.4999999999999, 327.5999999999999, 278.45999999999987]
+[780, 546, 410, 328, 279]
+
+    \end{Verbatim}
+
+    \subsubsection{note}\label{note}
+
+First, it determines the number of zones Z, into which A will be divided
+based on two main parameters: the total number of HN nodes (N) in the
+network, and the scalability factor ( Fs ) which we define as the
+maximum number of nodes to be accommodated in a single zone. The value
+of Z is given by:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{Z} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{o}{/}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{Fs}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Z}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100.0
+
+    \end{Verbatim}
+
+    Second, it decides the number of HN nodes that will be deployed in each
+single zone. according to the following formula:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{Nz} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{z} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{Z}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{z}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n}{Nz}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{N}\PY{o}{/}\PY{n}{Z}\PY{p}{)}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{Nz}\PY{p}{:}
+                    \PY{n}{k} \PY{o}{=} \PY{n}{k} \PY{o}{+} \PY{n}{i}
+                    
+                \PY{n}{Nz}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{p}{(}\PY{n}{N} \PY{o}{\PYZhy{}} \PY{n}{k}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{Z} \PY{o}{\PYZhy{}} \PY{n}{z} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Nz}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+
+    \end{Verbatim}
+
+    the working area A is divided into Z equal zones each L /√Z × L /√Z .
+Then each Nz heterogeneous nodes are randomly deployed in the respective
+zone in a uniform manner such that the vertical and horizontal
+coordinates of each node are randomly selected within the minimum and
+maximum limits of the zone dimensions. Here, we assume that the node
+sensing and communication ranges rs and rc are set to L/ √Z.√2 and 2. L
+/√Z.√2 respectively.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}so 100 zones each with 20 nodes,for each node we need to find rsmax,rcmax}
+         
+         \PY{n}{rsmax} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{c+c1}{\PYZsh{}node sensing}
+         \PY{n}{rcmax} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{c+c1}{\PYZsh{}communication ranges}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{Z}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{rsmax}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{L}\PY{o}{/}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{Z}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{n}{rcmax}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{L}\PY{o}{/}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{Z}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{rsmax}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{                }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rcmax}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902, 28.284271247461902]                  [56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804, 56.568542494923804]
+
+    \end{Verbatim}
+
+    \subsubsection{Note}\label{note}
+
+Third, it defines the value of R, the total number of EHs that should be
+deployed as relay nodes over all the zones as given by:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{R} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{pow}\PY{p}{(} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{Z}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1} \PY{p}{,} \PY{l+m+mi}{2} \PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{R}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+121
+
+    \end{Verbatim}
+
+    \subsection{NETWORK FORMATION}\label{network-formation}
+
+    the working area A is divided into Z equal zones each L /√Z × L /√Z .
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{D} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{L}\PY{o}{/}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{Z}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+20
+
+    \end{Verbatim}
+
+    You can use ticker to set the tick locations for the grid. The user can
+specify the input to MultipleLocator which will "Set a tick on every
+integer that is multiple of base in the view interval."
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{}this is testing plot}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{import} \PY{n}{MultipleLocator}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}defining size}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{c+c1}{\PYZsh{}adding a plot to figure}
+         
+         
+         \PY{n}{spacing} \PY{o}{=} \PY{n}{D} \PY{c+c1}{\PYZsh{} This can be your user specified spacing. }
+         \PY{n}{minorLocator} \PY{o}{=} \PY{n}{MultipleLocator}\PY{p}{(}\PY{n}{spacing}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mi}{9} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}testing}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}testing}
+         \PY{c+c1}{\PYZsh{} Set minor tick locations.}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}minor\PYZus{}locator}\PY{p}{(}\PY{n}{minorLocator}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}minor\PYZus{}locator}\PY{p}{(}\PY{n}{minorLocator}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{L}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{L}\PY{p}{]}\PY{p}{)}\PY{c+c1}{\PYZsh{}defining axix x and y}
+         \PY{c+c1}{\PYZsh{} Set grid to use minor tick locations. }
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{minor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}only major works fine}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Now we need to process each zone
+
+In each zone find Nzi random (x,y) with the zone limits and plot them
+
+distribute R EH node at the corners of each node so it becomes 121 it
+hope
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{}this is for one zone we need to do it for all the zones}
+         \PY{k+kn}{import} \PY{n+nn}{random}
+         
+         
+         \PY{n}{rangeX} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{rangeY} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} deltas = set()}
+         \PY{c+c1}{\PYZsh{} for x in range(1, 20):}
+         \PY{c+c1}{\PYZsh{}     for y in range(1, 20):}
+         \PY{c+c1}{\PYZsh{}         deltas.add((x,y))}
+         
+         \PY{n}{randPoints} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{excluded} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{)}
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{while} \PY{n}{i}\PY{o}{\PYZlt{}}\PY{n}{D}\PY{p}{:}
+             \PY{n}{x} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randrange}\PY{p}{(}\PY{o}{*}\PY{n}{rangeX}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randrange}\PY{p}{(}\PY{o}{*}\PY{n}{rangeY}\PY{p}{)}
+             \PY{k}{if} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o+ow}{in} \PY{n}{excluded}\PY{p}{:} \PY{k}{continue}
+             \PY{n}{randPoints}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+             \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n}{excluded}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{randPoints}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}https://stackoverflow.com/questions/19668463/generating\PYZhy{}multiple\PYZhy{}random\PYZhy{}x\PYZhy{}y\PYZhy{}coordinates\PYZhy{}excluding\PYZhy{}duplicates}
+         
+         \PY{k}{def} \PY{n+nf}{getpoints}\PY{p}{(}\PY{n}{startx}\PY{p}{,}\PY{n}{starty}\PY{p}{,}\PY{n}{endx}\PY{p}{,}\PY{n}{endy}\PY{p}{)}\PY{p}{:}
+             \PY{n}{rangeX} \PY{o}{=} \PY{p}{(}\PY{n}{startx}\PY{p}{,}\PY{n}{endx}\PY{p}{)}
+             \PY{n}{rangeY} \PY{o}{=} \PY{p}{(}\PY{n}{starty}\PY{p}{,}\PY{n}{endy}\PY{p}{)}
+             \PY{n}{randPoints} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{excluded} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{)}
+             \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{while} \PY{n}{i}\PY{o}{\PYZlt{}}\PY{n}{D}\PY{p}{:}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randrange}\PY{p}{(}\PY{o}{*}\PY{n}{rangeX}\PY{p}{)}
+                 \PY{n}{y} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randrange}\PY{p}{(}\PY{o}{*}\PY{n}{rangeY}\PY{p}{)}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o+ow}{in} \PY{n}{excluded}\PY{p}{:} \PY{k}{continue}
+                 \PY{n}{randPoints}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{excluded}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return}\PY{p}{(}\PY{n}{randPoints}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[(15, 13), (13, 13), (5, 3), (15, 10), (19, 8), (16, 1), (15, 9), (16, 8), (6, 12), (3, 14), (19, 2), (2, 19), (13, 0), (1, 4), (12, 13), (1, 5), (4, 5), (5, 13), (3, 2), (8, 6)]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{zonespoints} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{Z}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}for y axis}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{Z}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}for x axis}
+                 \PY{n}{zonespoints}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{getpoints}\PY{p}{(}\PY{n}{j}\PY{o}{*}\PY{l+m+mi}{20}\PY{p}{,}\PY{n}{i}\PY{o}{*}\PY{l+m+mi}{20}\PY{p}{,}\PY{p}{(}\PY{n}{j}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{20}\PY{p}{,}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{zonespoints}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[(2, 6), (10, 12), (2, 11), (5, 19), (13, 15), (5, 11), (8, 5), (0, 17), (2, 18), (13, 6), (3, 5), (7, 8), (8, 17), (10, 11), (10, 18), (8, 14), (7, 17), (10, 11), (1, 10), (10, 0)]
+[(25, 16), (33, 13), (33, 2), (38, 10), (36, 17), (33, 5), (21, 9), (26, 8), (32, 7), (25, 0), (25, 7), (36, 17), (23, 18), (23, 13), (27, 14), (33, 15), (32, 3), (35, 9), (35, 1), (38, 14)]
+[(59, 8), (47, 4), (51, 4), (47, 4), (52, 8), (55, 11), (45, 5), (43, 9), (58, 11), (46, 0), (42, 0), (53, 11), (46, 16), (45, 7), (59, 6), (55, 9), (53, 19), (52, 6), (43, 9), (41, 9)]
+[(67, 12), (78, 12), (75, 2), (78, 1), (68, 3), (68, 11), (70, 14), (63, 13), (66, 3), (76, 2), (64, 6), (62, 1), (61, 12), (71, 5), (62, 2), (74, 0), (77, 7), (70, 12), (61, 0), (70, 3)]
+[(83, 5), (98, 1), (88, 18), (98, 13), (93, 1), (93, 14), (91, 2), (88, 4), (85, 6), (83, 6), (97, 5), (93, 7), (97, 2), (92, 6), (94, 4), (97, 3), (89, 5), (80, 4), (96, 14), (95, 9)]
+[(100, 2), (108, 15), (114, 2), (107, 19), (113, 8), (113, 16), (105, 4), (118, 16), (117, 19), (117, 15), (116, 0), (118, 1), (113, 2), (100, 18), (112, 0), (112, 10), (106, 12), (112, 1), (106, 15), (114, 10)]
+[(139, 19), (139, 10), (138, 7), (125, 8), (132, 17), (130, 0), (139, 3), (123, 12), (139, 19), (137, 2), (120, 16), (133, 4), (130, 3), (127, 4), (124, 17), (124, 4), (135, 4), (126, 8), (130, 2), (128, 9)]
+[(151, 8), (150, 4), (152, 0), (156, 7), (152, 5), (140, 11), (146, 13), (143, 14), (140, 11), (155, 1), (156, 6), (155, 19), (155, 8), (143, 4), (152, 0), (156, 1), (141, 11), (146, 0), (146, 1), (146, 14)]
+[(172, 15), (169, 6), (175, 4), (174, 4), (166, 2), (178, 8), (162, 18), (169, 9), (171, 9), (177, 12), (177, 19), (166, 10), (163, 15), (169, 14), (174, 1), (171, 3), (169, 7), (177, 15), (171, 3), (172, 17)]
+[(183, 11), (193, 3), (193, 8), (182, 14), (189, 5), (195, 2), (186, 3), (180, 14), (190, 19), (180, 7), (182, 7), (197, 4), (183, 14), (192, 11), (195, 5), (192, 10), (193, 2), (199, 16), (195, 1), (195, 19)]
+[(19, 23), (15, 39), (12, 39), (2, 27), (13, 25), (9, 36), (11, 23), (5, 23), (19, 25), (2, 21), (2, 30), (17, 29), (7, 30), (9, 31), (11, 20), (15, 24), (2, 28), (8, 36), (19, 26), (2, 38)]
+[(29, 30), (23, 38), (29, 24), (26, 36), (38, 38), (29, 34), (32, 26), (26, 21), (25, 30), (26, 33), (36, 26), (37, 31), (20, 29), (34, 21), (28, 37), (23, 30), (34, 36), (30, 34), (20, 24), (33, 38)]
+[(53, 20), (41, 39), (52, 34), (45, 23), (56, 27), (45, 39), (53, 23), (45, 37), (53, 31), (47, 39), (57, 29), (43, 30), (52, 35), (51, 35), (55, 37), (43, 26), (55, 33), (42, 22), (47, 22), (43, 34)]
+[(63, 30), (67, 31), (69, 24), (76, 21), (61, 27), (65, 36), (75, 35), (77, 28), (76, 24), (71, 35), (65, 20), (77, 31), (74, 28), (61, 23), (66, 35), (67, 34), (69, 36), (75, 38), (74, 25), (66, 27)]
+[(95, 31), (80, 22), (86, 22), (98, 38), (82, 33), (88, 20), (89, 34), (93, 24), (97, 23), (91, 25), (80, 38), (98, 31), (92, 28), (81, 39), (85, 25), (80, 23), (97, 33), (86, 31), (85, 36), (82, 28)]
+[(103, 39), (112, 34), (100, 22), (115, 24), (101, 29), (118, 22), (113, 36), (107, 30), (112, 33), (108, 22), (114, 29), (110, 27), (107, 34), (107, 37), (113, 20), (104, 27), (113, 28), (112, 27), (116, 35), (113, 37)]
+[(138, 35), (126, 30), (131, 38), (125, 36), (134, 39), (137, 21), (125, 24), (126, 29), (133, 35), (124, 39), (132, 34), (137, 26), (134, 35), (136, 20), (124, 33), (130, 33), (136, 20), (131, 23), (124, 35), (131, 38)]
+[(150, 26), (143, 28), (149, 39), (147, 24), (145, 36), (154, 34), (158, 33), (150, 29), (153, 26), (149, 35), (140, 32), (152, 39), (146, 32), (158, 25), (144, 27), (149, 24), (154, 37), (149, 20), (152, 32), (156, 20)]
+[(177, 30), (164, 24), (163, 32), (162, 20), (166, 39), (176, 22), (174, 25), (176, 36), (167, 35), (172, 32), (165, 29), (167, 39), (176, 24), (177, 21), (178, 24), (173, 36), (172, 24), (177, 20), (173, 33), (164, 29)]
+[(186, 35), (199, 32), (187, 23), (187, 23), (192, 21), (188, 29), (185, 36), (188, 30), (191, 21), (199, 20), (189, 21), (193, 31), (187, 27), (180, 37), (193, 21), (187, 37), (187, 30), (181, 29), (188, 36), (191, 22)]
+[(14, 52), (10, 58), (18, 48), (3, 40), (13, 51), (2, 57), (18, 51), (6, 49), (11, 41), (11, 48), (10, 55), (7, 46), (0, 59), (12, 50), (7, 53), (12, 46), (2, 43), (13, 45), (13, 48), (0, 44)]
+[(31, 50), (30, 53), (25, 40), (32, 52), (36, 41), (21, 43), (37, 58), (32, 41), (36, 44), (25, 40), (31, 48), (39, 44), (33, 54), (34, 50), (34, 47), (32, 56), (38, 41), (36, 58), (37, 54), (29, 54)]
+[(48, 51), (44, 45), (44, 41), (41, 40), (53, 51), (51, 41), (54, 54), (47, 54), (41, 58), (54, 51), (55, 42), (45, 51), (40, 50), (48, 42), (45, 42), (47, 42), (53, 54), (49, 53), (42, 45), (58, 59)]
+[(70, 47), (60, 57), (60, 54), (64, 43), (63, 41), (66, 45), (72, 53), (72, 54), (78, 55), (71, 45), (74, 48), (79, 49), (66, 54), (79, 46), (76, 56), (69, 40), (75, 59), (78, 50), (61, 52), (63, 44)]
+[(95, 49), (96, 49), (86, 48), (92, 58), (89, 42), (99, 57), (91, 49), (97, 44), (91, 42), (88, 53), (89, 48), (82, 55), (82, 49), (87, 55), (82, 40), (97, 43), (82, 43), (87, 53), (91, 56), (81, 52)]
+[(108, 45), (104, 47), (103, 59), (113, 44), (110, 51), (113, 50), (119, 45), (100, 42), (103, 46), (103, 56), (112, 50), (109, 59), (115, 45), (114, 50), (106, 53), (112, 46), (108, 58), (113, 44), (103, 50), (118, 49)]
+[(122, 43), (127, 47), (128, 55), (132, 47), (121, 43), (128, 54), (133, 54), (126, 54), (122, 41), (120, 49), (133, 45), (124, 40), (130, 46), (123, 43), (120, 41), (132, 49), (123, 44), (122, 49), (139, 51), (139, 43)]
+[(140, 46), (159, 45), (155, 52), (144, 56), (147, 57), (149, 54), (141, 48), (158, 52), (141, 56), (147, 41), (141, 47), (140, 45), (147, 51), (149, 56), (147, 44), (158, 59), (159, 50), (157, 42), (151, 43), (155, 44)]
+[(172, 50), (164, 59), (164, 41), (162, 55), (163, 51), (176, 41), (165, 58), (162, 44), (177, 42), (179, 54), (174, 49), (165, 59), (172, 57), (179, 52), (176, 58), (166, 54), (165, 53), (179, 55), (169, 52), (162, 46)]
+[(186, 57), (194, 57), (184, 41), (186, 53), (197, 55), (198, 48), (196, 56), (193, 49), (182, 55), (193, 58), (188, 46), (188, 51), (181, 59), (188, 56), (195, 49), (186, 40), (184, 48), (183, 42), (197, 57), (197, 49)]
+[(12, 62), (17, 62), (6, 65), (16, 70), (10, 62), (19, 78), (6, 68), (7, 67), (18, 74), (2, 67), (1, 76), (18, 60), (7, 73), (19, 73), (1, 72), (19, 64), (1, 76), (5, 77), (0, 77), (17, 68)]
+[(20, 71), (33, 77), (24, 63), (37, 66), (30, 66), (35, 69), (38, 73), (32, 60), (22, 69), (36, 71), (32, 66), (22, 77), (32, 78), (22, 71), (32, 71), (26, 70), (29, 78), (37, 72), (38, 61), (37, 68)]
+[(46, 74), (50, 61), (40, 61), (41, 69), (48, 63), (45, 66), (54, 77), (59, 60), (53, 78), (58, 62), (41, 73), (55, 70), (47, 70), (55, 79), (41, 76), (59, 64), (54, 66), (52, 72), (56, 66), (59, 63)]
+[(68, 63), (64, 64), (65, 71), (62, 64), (71, 72), (78, 64), (79, 64), (79, 61), (65, 72), (68, 72), (65, 75), (68, 75), (72, 76), (64, 60), (63, 62), (63, 68), (79, 61), (73, 72), (61, 75), (78, 69)]
+[(98, 78), (94, 70), (98, 72), (84, 79), (94, 61), (83, 66), (93, 72), (81, 66), (87, 79), (90, 77), (87, 73), (84, 79), (99, 78), (85, 66), (97, 79), (89, 61), (88, 77), (83, 60), (80, 61), (98, 72)]
+[(115, 76), (108, 65), (113, 76), (105, 66), (112, 75), (109, 77), (108, 62), (114, 63), (115, 62), (102, 73), (101, 79), (115, 68), (103, 67), (114, 72), (119, 72), (107, 77), (100, 78), (106, 68), (117, 63), (110, 76)]
+[(124, 70), (123, 73), (135, 66), (131, 76), (135, 60), (129, 69), (137, 61), (132, 67), (137, 75), (123, 66), (121, 61), (137, 73), (137, 71), (126, 77), (126, 73), (123, 71), (122, 78), (129, 60), (125, 71), (130, 75)]
+[(150, 65), (143, 69), (143, 76), (154, 70), (152, 71), (142, 72), (159, 65), (146, 79), (157, 60), (158, 62), (147, 68), (151, 62), (142, 77), (158, 78), (155, 70), (142, 72), (150, 61), (155, 65), (151, 78), (153, 71)]
+[(167, 72), (161, 67), (164, 76), (163, 60), (170, 70), (167, 78), (169, 73), (170, 79), (176, 66), (179, 78), (179, 74), (169, 76), (160, 71), (168, 63), (162, 74), (178, 61), (176, 73), (167, 63), (167, 62), (176, 63)]
+[(187, 74), (185, 77), (185, 77), (197, 67), (183, 60), (188, 75), (184, 75), (194, 65), (198, 69), (189, 75), (194, 72), (181, 74), (195, 72), (197, 73), (196, 72), (198, 63), (197, 60), (183, 66), (191, 67), (185, 60)]
+[(6, 99), (12, 86), (6, 94), (18, 92), (1, 86), (1, 84), (17, 99), (13, 88), (3, 82), (1, 95), (18, 82), (11, 95), (12, 90), (13, 95), (6, 91), (19, 90), (3, 89), (7, 81), (5, 81), (5, 96)]
+[(33, 89), (21, 99), (35, 85), (22, 99), (34, 84), (33, 82), (34, 93), (29, 83), (23, 94), (28, 98), (22, 95), (22, 99), (26, 83), (36, 84), (34, 88), (38, 94), (35, 84), (21, 97), (38, 92), (34, 80)]
+[(47, 87), (55, 89), (58, 80), (44, 99), (43, 85), (42, 95), (55, 84), (51, 88), (52, 98), (44, 83), (48, 85), (50, 94), (57, 95), (47, 90), (58, 88), (43, 98), (52, 83), (49, 99), (49, 97), (54, 80)]
+[(60, 80), (61, 93), (79, 91), (65, 93), (77, 86), (68, 82), (68, 91), (61, 89), (76, 98), (60, 92), (64, 90), (66, 80), (60, 91), (70, 94), (62, 80), (65, 98), (60, 93), (60, 82), (69, 91), (72, 80)]
+[(92, 99), (88, 97), (86, 89), (91, 95), (93, 91), (84, 82), (80, 98), (96, 86), (81, 82), (87, 81), (91, 82), (93, 98), (88, 92), (99, 88), (90, 82), (83, 95), (99, 81), (99, 90), (93, 84), (83, 84)]
+[(108, 83), (111, 89), (107, 88), (108, 87), (117, 94), (105, 86), (116, 81), (100, 81), (119, 87), (114, 98), (105, 89), (112, 91), (112, 94), (113, 96), (111, 92), (111, 83), (109, 85), (100, 92), (100, 86), (115, 80)]
+[(130, 84), (124, 86), (132, 92), (133, 85), (120, 85), (137, 95), (139, 92), (126, 90), (124, 92), (137, 86), (128, 95), (120, 98), (127, 80), (129, 83), (124, 81), (120, 96), (125, 96), (132, 96), (124, 94), (129, 85)]
+[(150, 89), (142, 91), (142, 88), (148, 87), (140, 80), (144, 88), (141, 92), (152, 98), (152, 99), (145, 82), (145, 83), (141, 82), (148, 96), (142, 94), (140, 85), (151, 88), (156, 90), (141, 81), (144, 83), (155, 84)]
+[(167, 80), (167, 89), (162, 92), (177, 89), (164, 89), (162, 87), (177, 86), (164, 96), (162, 87), (170, 99), (177, 98), (164, 85), (161, 97), (176, 86), (176, 83), (175, 91), (162, 86), (173, 99), (173, 83), (175, 85)]
+[(194, 82), (190, 90), (180, 85), (196, 88), (182, 99), (196, 81), (183, 87), (182, 90), (180, 95), (195, 99), (196, 86), (180, 89), (189, 93), (199, 95), (195, 85), (184, 92), (188, 83), (192, 94), (199, 88), (190, 90)]
+[(14, 103), (11, 111), (16, 113), (15, 112), (18, 115), (8, 116), (11, 116), (6, 118), (1, 115), (3, 118), (16, 108), (4, 113), (12, 104), (18, 101), (17, 104), (0, 107), (15, 102), (15, 114), (19, 113), (3, 114)]
+[(34, 119), (23, 113), (22, 115), (34, 113), (36, 101), (29, 115), (27, 110), (31, 110), (35, 109), (28, 107), (36, 119), (26, 105), (30, 106), (26, 106), (21, 110), (31, 115), (29, 112), (39, 109), (28, 107), (38, 116)]
+[(57, 113), (53, 115), (53, 116), (44, 118), (43, 102), (51, 107), (50, 110), (41, 114), (41, 106), (45, 108), (47, 117), (51, 102), (53, 107), (55, 116), (50, 112), (43, 112), (45, 103), (45, 111), (42, 100), (45, 102)]
+[(65, 111), (68, 101), (71, 102), (73, 102), (60, 113), (68, 104), (72, 102), (75, 119), (63, 102), (76, 106), (69, 106), (69, 117), (74, 112), (68, 118), (79, 104), (72, 111), (78, 119), (66, 114), (69, 109), (73, 108)]
+[(80, 109), (82, 106), (91, 105), (83, 107), (93, 102), (98, 109), (87, 107), (98, 104), (82, 117), (94, 100), (97, 118), (80, 116), (86, 103), (86, 108), (84, 110), (90, 116), (82, 117), (80, 100), (83, 106), (92, 102)]
+[(117, 106), (114, 104), (104, 115), (107, 104), (113, 110), (105, 105), (101, 110), (108, 104), (107, 117), (104, 104), (104, 110), (119, 103), (103, 111), (108, 105), (118, 110), (108, 102), (112, 117), (107, 104), (104, 108), (100, 103)]
+[(130, 106), (136, 107), (123, 117), (121, 119), (130, 108), (129, 110), (134, 112), (130, 114), (124, 108), (138, 103), (137, 110), (138, 108), (131, 107), (129, 110), (133, 118), (137, 111), (125, 101), (133, 101), (126, 108), (127, 102)]
+[(145, 108), (144, 118), (146, 110), (157, 102), (154, 100), (155, 105), (145, 118), (147, 106), (153, 101), (151, 109), (141, 110), (156, 112), (157, 110), (144, 110), (143, 102), (143, 118), (142, 103), (142, 115), (143, 115), (158, 106)]
+[(167, 118), (169, 119), (172, 119), (165, 109), (171, 100), (174, 102), (171, 119), (179, 107), (175, 104), (160, 108), (177, 100), (168, 104), (161, 109), (179, 100), (161, 103), (166, 107), (173, 108), (163, 100), (177, 119), (166, 115)]
+[(183, 112), (180, 106), (180, 103), (186, 103), (184, 117), (189, 108), (192, 109), (187, 115), (180, 105), (191, 100), (194, 112), (184, 114), (190, 101), (183, 107), (183, 116), (198, 110), (193, 107), (194, 103), (193, 103), (187, 115)]
+[(1, 127), (10, 139), (11, 128), (5, 131), (1, 122), (3, 134), (2, 126), (14, 129), (16, 131), (3, 123), (1, 128), (16, 137), (9, 132), (2, 120), (19, 121), (10, 135), (19, 133), (1, 137), (14, 133), (8, 133)]
+[(31, 129), (39, 138), (27, 138), (39, 125), (36, 129), (22, 122), (22, 137), (31, 125), (33, 136), (35, 127), (37, 139), (29, 121), (37, 126), (28, 128), (29, 122), (26, 137), (21, 123), (38, 132), (34, 132), (30, 120)]
+[(46, 126), (41, 127), (44, 124), (41, 125), (59, 139), (46, 125), (53, 120), (42, 122), (49, 126), (43, 135), (52, 123), (55, 136), (42, 139), (49, 122), (46, 128), (54, 122), (54, 137), (49, 130), (48, 128), (57, 135)]
+[(70, 129), (75, 130), (70, 135), (77, 128), (62, 127), (67, 129), (66, 132), (72, 138), (70, 131), (77, 138), (64, 138), (76, 138), (71, 122), (71, 124), (77, 126), (77, 133), (66, 129), (63, 133), (61, 128), (68, 127)]
+[(88, 120), (88, 125), (86, 139), (98, 134), (81, 129), (95, 125), (81, 136), (81, 138), (93, 122), (89, 120), (90, 128), (89, 130), (82, 123), (90, 130), (97, 123), (84, 129), (91, 121), (84, 134), (84, 120), (93, 136)]
+[(111, 135), (113, 124), (115, 139), (116, 137), (111, 120), (114, 139), (115, 127), (115, 136), (101, 136), (111, 137), (111, 134), (119, 132), (107, 139), (102, 125), (100, 127), (104, 133), (114, 134), (115, 135), (110, 137), (119, 127)]
+[(133, 135), (129, 136), (134, 121), (120, 129), (122, 133), (129, 130), (122, 132), (122, 137), (135, 125), (128, 137), (122, 122), (138, 127), (126, 137), (120, 133), (137, 135), (134, 122), (122, 136), (129, 120), (132, 123), (138, 127)]
+[(145, 120), (155, 121), (141, 134), (159, 132), (153, 130), (156, 126), (153, 139), (150, 124), (142, 132), (143, 129), (159, 131), (146, 135), (144, 132), (157, 126), (145, 128), (145, 131), (140, 125), (151, 121), (147, 120), (146, 121)]
+[(171, 133), (163, 124), (166, 130), (162, 121), (160, 128), (166, 128), (167, 137), (161, 131), (178, 131), (179, 121), (164, 129), (163, 138), (168, 122), (178, 126), (178, 131), (179, 128), (176, 131), (166, 124), (179, 133), (179, 122)]
+[(197, 129), (182, 130), (182, 139), (188, 129), (187, 127), (183, 131), (186, 130), (186, 121), (180, 134), (182, 128), (183, 138), (184, 122), (182, 133), (186, 134), (199, 122), (190, 125), (194, 138), (182, 125), (187, 132), (193, 128)]
+[(13, 153), (7, 151), (13, 153), (18, 152), (1, 140), (2, 140), (1, 150), (12, 158), (2, 142), (1, 141), (1, 152), (6, 155), (3, 151), (1, 147), (11, 157), (4, 143), (18, 154), (9, 147), (12, 154), (0, 146)]
+[(38, 141), (30, 144), (35, 140), (38, 149), (21, 146), (36, 147), (29, 141), (23, 148), (31, 142), (30, 142), (27, 150), (26, 144), (26, 157), (36, 145), (38, 153), (29, 153), (33, 159), (32, 149), (33, 141), (20, 154)]
+[(42, 152), (40, 151), (56, 159), (55, 146), (49, 150), (49, 152), (45, 141), (55, 157), (58, 144), (41, 156), (55, 140), (43, 140), (41, 152), (41, 150), (44, 158), (43, 147), (43, 147), (47, 141), (44, 150), (58, 150)]
+[(60, 153), (71, 148), (66, 150), (78, 151), (66, 157), (75, 144), (75, 156), (65, 153), (78, 158), (73, 159), (68, 156), (65, 149), (60, 157), (72, 152), (79, 154), (71, 142), (71, 152), (62, 143), (69, 144), (60, 157)]
+[(99, 146), (82, 152), (80, 154), (95, 159), (84, 146), (84, 158), (86, 157), (84, 148), (89, 145), (91, 158), (88, 148), (90, 143), (85, 150), (88, 155), (92, 147), (89, 149), (85, 150), (86, 148), (93, 153), (83, 148)]
+[(102, 140), (106, 141), (111, 147), (118, 158), (108, 149), (113, 142), (105, 153), (101, 157), (112, 140), (114, 148), (113, 154), (105, 142), (103, 143), (112, 144), (103, 158), (114, 146), (101, 142), (109, 155), (111, 146), (106, 146)]
+[(122, 148), (131, 155), (126, 150), (123, 157), (135, 143), (136, 142), (128, 140), (122, 146), (135, 156), (137, 156), (138, 149), (137, 145), (122, 157), (133, 158), (132, 149), (135, 159), (138, 156), (135, 156), (127, 154), (126, 147)]
+[(149, 146), (149, 153), (156, 152), (158, 152), (158, 157), (147, 142), (140, 153), (159, 142), (140, 151), (145, 155), (142, 143), (145, 140), (153, 147), (140, 154), (159, 154), (146, 143), (152, 140), (149, 150), (150, 149), (152, 143)]
+[(163, 142), (169, 150), (165, 146), (172, 153), (168, 143), (170, 151), (170, 155), (167, 150), (162, 149), (167, 144), (176, 150), (179, 155), (162, 149), (176, 156), (176, 157), (176, 152), (172, 148), (161, 156), (179, 143), (173, 145)]
+[(188, 147), (193, 159), (199, 157), (199, 151), (194, 159), (195, 149), (197, 149), (189, 150), (189, 149), (193, 143), (188, 151), (183, 140), (189, 155), (188, 152), (185, 144), (182, 150), (188, 147), (181, 146), (196, 148), (191, 151)]
+[(6, 164), (3, 175), (2, 162), (19, 168), (19, 171), (2, 173), (2, 169), (0, 162), (11, 164), (15, 175), (0, 167), (0, 178), (12, 170), (5, 160), (9, 175), (14, 161), (7, 161), (15, 167), (14, 162), (0, 164)]
+[(24, 177), (34, 161), (31, 171), (39, 176), (31, 179), (25, 162), (22, 172), (34, 174), (22, 162), (39, 160), (22, 176), (38, 175), (28, 173), (35, 162), (35, 166), (28, 163), (29, 179), (28, 172), (26, 175), (38, 162)]
+[(50, 174), (55, 162), (52, 162), (57, 162), (51, 174), (59, 160), (58, 179), (42, 168), (48, 163), (59, 163), (45, 163), (55, 168), (50, 169), (45, 170), (58, 178), (44, 169), (45, 163), (46, 167), (53, 178), (46, 176)]
+[(75, 177), (62, 169), (76, 179), (68, 175), (72, 167), (69, 170), (78, 176), (70, 168), (78, 168), (61, 166), (71, 176), (77, 176), (75, 160), (71, 174), (64, 164), (67, 168), (78, 169), (60, 177), (79, 160), (74, 171)]
+[(84, 166), (97, 173), (93, 161), (82, 171), (91, 160), (91, 176), (92, 176), (98, 177), (99, 160), (82, 175), (99, 175), (94, 174), (99, 163), (80, 167), (99, 169), (95, 166), (97, 179), (91, 176), (94, 172), (88, 160)]
+[(101, 177), (117, 169), (113, 178), (119, 168), (119, 163), (116, 160), (117, 163), (115, 161), (114, 165), (106, 171), (103, 178), (101, 162), (106, 161), (107, 163), (117, 176), (119, 175), (110, 167), (109, 177), (100, 177), (102, 164)]
+[(129, 176), (130, 179), (120, 168), (133, 171), (122, 161), (122, 172), (121, 170), (127, 164), (139, 169), (134, 168), (132, 175), (130, 168), (133, 169), (136, 166), (130, 164), (139, 177), (139, 172), (135, 165), (125, 172), (121, 165)]
+[(159, 168), (159, 168), (144, 176), (154, 174), (158, 177), (145, 166), (145, 172), (156, 172), (140, 165), (144, 169), (145, 175), (142, 163), (147, 160), (145, 171), (153, 173), (140, 179), (145, 172), (144, 176), (158, 176), (141, 161)]
+[(164, 167), (178, 175), (160, 175), (169, 173), (171, 177), (178, 168), (172, 160), (163, 174), (166, 179), (162, 168), (172, 166), (173, 174), (169, 165), (168, 178), (178, 167), (170, 171), (162, 174), (172, 169), (177, 166), (179, 160)]
+[(187, 174), (195, 177), (188, 168), (181, 170), (182, 163), (182, 173), (198, 166), (183, 162), (186, 160), (197, 171), (199, 162), (196, 178), (180, 167), (180, 161), (193, 175), (186, 166), (196, 171), (199, 164), (182, 175), (183, 162)]
+[(12, 189), (15, 194), (15, 188), (6, 184), (0, 193), (16, 191), (19, 197), (2, 194), (15, 181), (13, 196), (7, 195), (9, 185), (5, 195), (11, 188), (6, 188), (5, 180), (15, 183), (11, 185), (1, 182), (6, 181)]
+[(28, 192), (25, 188), (22, 186), (22, 187), (21, 195), (30, 198), (24, 188), (34, 183), (31, 184), (22, 189), (24, 194), (30, 194), (27, 184), (39, 195), (28, 180), (20, 193), (24, 194), (34, 187), (33, 183), (21, 194)]
+[(47, 195), (51, 180), (50, 189), (41, 195), (49, 188), (59, 193), (41, 184), (42, 189), (53, 184), (54, 195), (47, 199), (58, 197), (45, 184), (59, 190), (50, 181), (57, 194), (59, 184), (47, 180), (58, 191), (50, 197)]
+[(63, 180), (71, 192), (68, 181), (67, 191), (74, 189), (64, 199), (71, 186), (65, 183), (73, 187), (63, 197), (72, 180), (64, 191), (71, 188), (65, 182), (70, 182), (63, 199), (78, 196), (70, 198), (78, 196), (72, 189)]
+[(81, 185), (98, 195), (82, 186), (83, 180), (95, 196), (86, 189), (93, 191), (88, 194), (80, 180), (82, 193), (87, 187), (91, 184), (85, 194), (88, 197), (95, 194), (90, 190), (93, 193), (90, 199), (88, 199), (87, 188)]
+[(110, 188), (105, 185), (105, 180), (101, 191), (103, 189), (117, 194), (116, 199), (111, 187), (106, 197), (108, 195), (103, 192), (110, 187), (107, 196), (111, 181), (107, 195), (106, 194), (117, 195), (112, 194), (108, 191), (119, 196)]
+[(125, 184), (132, 199), (139, 183), (123, 197), (130, 180), (122, 192), (136, 189), (125, 186), (135, 182), (137, 197), (126, 189), (123, 188), (124, 187), (135, 197), (132, 197), (124, 194), (132, 186), (133, 199), (125, 181), (134, 195)]
+[(146, 183), (151, 187), (149, 182), (159, 180), (155, 186), (146, 199), (157, 189), (155, 181), (141, 186), (158, 186), (147, 195), (141, 188), (140, 192), (146, 189), (156, 188), (156, 185), (142, 192), (141, 183), (144, 198), (146, 192)]
+[(160, 180), (172, 189), (170, 185), (168, 198), (164, 186), (173, 191), (177, 192), (173, 198), (172, 185), (163, 182), (172, 192), (163, 185), (170, 191), (175, 191), (174, 187), (168, 191), (175, 186), (178, 186), (176, 191), (164, 193)]
+[(197, 191), (181, 188), (191, 184), (195, 190), (199, 192), (189, 191), (198, 187), (194, 195), (183, 198), (193, 195), (197, 183), (198, 194), (198, 193), (193, 184), (199, 196), (192, 180), (191, 185), (187, 186), (195, 182), (182, 186)]
+
+    \end{Verbatim}
+
+    \subsubsection{now perfectly we got the points,so what remains is
+ploting}\label{now-perfectly-we-got-the-pointsso-what-remains-is-ploting}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{zonespoints}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{i}\PY{p}{:}
+                 \PY{n}{x}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{j}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{j}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{}print(x,y)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}defining size}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{c+c1}{\PYZsh{}adding a plot to figure}
+         
+         
+         \PY{n}{spacing} \PY{o}{=} \PY{n}{D} \PY{c+c1}{\PYZsh{} This can be your user specified spacing. }
+         \PY{n}{minorLocator} \PY{o}{=} \PY{n}{MultipleLocator}\PY{p}{(}\PY{n}{spacing}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}testing}
+         \PY{c+c1}{\PYZsh{} Set minor tick locations.}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}minor\PYZus{}locator}\PY{p}{(}\PY{n}{minorLocator}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}minor\PYZus{}locator}\PY{p}{(}\PY{n}{minorLocator}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{L}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{L}\PY{p}{]}\PY{p}{)}\PY{c+c1}{\PYZsh{}defining axix x and y}
+         \PY{c+c1}{\PYZsh{} Set grid to use minor tick locations. }
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{minor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}only major works fine}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{}for each corner place a EH node}
+         \PY{n}{EH} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{L}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{L}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{EH}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{EH}\PY{p}{)}
+         
+         \PY{n}{EHx} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{EHy} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{EH}\PY{p}{:}
+             \PY{n}{EHx}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{j}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{EHy}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{j}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{EHx}\PY{p}{,}\PY{n}{EHy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[(0, 0), (0, 20), (0, 40), (0, 60), (0, 80), (0, 100), (0, 120), (0, 140), (0, 160), (0, 180), (0, 200), (20, 0), (20, 20), (20, 40), (20, 60), (20, 80), (20, 100), (20, 120), (20, 140), (20, 160), (20, 180), (20, 200), (40, 0), (40, 20), (40, 40), (40, 60), (40, 80), (40, 100), (40, 120), (40, 140), (40, 160), (40, 180), (40, 200), (60, 0), (60, 20), (60, 40), (60, 60), (60, 80), (60, 100), (60, 120), (60, 140), (60, 160), (60, 180), (60, 200), (80, 0), (80, 20), (80, 40), (80, 60), (80, 80), (80, 100), (80, 120), (80, 140), (80, 160), (80, 180), (80, 200), (100, 0), (100, 20), (100, 40), (100, 60), (100, 80), (100, 100), (100, 120), (100, 140), (100, 160), (100, 180), (100, 200), (120, 0), (120, 20), (120, 40), (120, 60), (120, 80), (120, 100), (120, 120), (120, 140), (120, 160), (120, 180), (120, 200), (140, 0), (140, 20), (140, 40), (140, 60), (140, 80), (140, 100), (140, 120), (140, 140), (140, 160), (140, 180), (140, 200), (160, 0), (160, 20), (160, 40), (160, 60), (160, 80), (160, 100), (160, 120), (160, 140), (160, 160), (160, 180), (160, 200), (180, 0), (180, 20), (180, 40), (180, 60), (180, 80), (180, 100), (180, 120), (180, 140), (180, 160), (180, 180), (180, 200), (200, 0), (200, 20), (200, 40), (200, 60), (200, 80), (200, 100), (200, 120), (200, 140), (200, 160), (200, 180), (200, 200)]
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 140, 140, 140, 140, 140, 140, 140, 140, 140, 140, 140, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200] [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{zonespoints}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{i}\PY{p}{:}
+                 \PY{n}{x}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{j}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{j}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 
+         \PY{c+c1}{\PYZsh{}for each corner place a EH node}
+         \PY{n}{EH} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{L}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{L}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{EH}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(EH)}
+         
+         \PY{n}{EHx} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{EHy} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{EH}\PY{p}{:}
+             \PY{n}{EHx}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{j}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{EHy}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{j}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 
+         \PY{c+c1}{\PYZsh{}print(EHx,EHy)}
+         
+         \PY{c+c1}{\PYZsh{}print(x,y)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}defining size}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{c+c1}{\PYZsh{}adding a plot to figure}
+         
+         
+         \PY{n}{spacing} \PY{o}{=} \PY{n}{D} \PY{c+c1}{\PYZsh{} This can be your user specified spacing. }
+         \PY{n}{minorLocator} \PY{o}{=} \PY{n}{MultipleLocator}\PY{p}{(}\PY{n}{spacing}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}testing}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{EHx}\PY{p}{,}\PY{n}{EHy}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Set minor tick locations.}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}minor\PYZus{}locator}\PY{p}{(}\PY{n}{minorLocator}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}minor\PYZus{}locator}\PY{p}{(}\PY{n}{minorLocator}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{L}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{L}\PY{p}{]}\PY{p}{)}\PY{c+c1}{\PYZsh{}defining axix x and y}
+         \PY{c+c1}{\PYZsh{} Set grid to use minor tick locations. }
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{minor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}only major works fine}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{At last placing of LBS}\label{at-last-placing-of-lbs}
+
+for each bs in LBS
+
+\begin{verbatim}
+place them in predefined location
+\end{verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
