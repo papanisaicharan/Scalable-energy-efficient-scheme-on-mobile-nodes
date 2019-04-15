@@ -4,4 +4,4 @@ link to SEES: https://drive.google.com/open?id=0B6DocT_qEp8cUEw1X2xZeXR0aTRDbVBN
 
 SEES CODE folder conatin complete python implementation of SEES
 
-first run initialisation.py, thus will store the results in csv format then run plotting.py to get the results
+first run initialisation.py, this will store the results in csv format then run plotting.py to get the results
