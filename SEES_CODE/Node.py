@@ -33,7 +33,7 @@ class Node():
 		self.iszag = False
 		self.iszas = False
 		self.zoneid = zoneid
-		# if we want to consider energy consumption while moving intilize this with Ed value according to requirement
+		# if we want to consider energy consumption while moving,intilize this with Ed value according to requirement
 		self.Ed_energy = 10*math.pow(10,-10)
 		self.data = 4000
 		#threading.Timer(0.2, self.start_generate_data).start()
