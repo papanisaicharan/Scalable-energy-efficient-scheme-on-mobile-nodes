@@ -1,10 +1,9 @@
-"""
+""" 
+CODED BY : PAPANI SAICHARAN
  This is a class of EH_relay node where class information is stored 
  in it.
 
 """
-
-
 
 import time, threading
 import math

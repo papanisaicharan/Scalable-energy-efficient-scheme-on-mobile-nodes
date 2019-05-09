@@ -1,16 +1,21 @@
-"""
+""" 
+CODED BY : PAPANI SAICHARAN
  This is a class of Zone where class information is stored 
  in it.
 
 """
 class Zone():
-	def __init__(self,zoneid,node_object_in_it):
+	def __init__(self,zoneid,node_object_in_it,init_coord):
 		self.dead = 0
 		self.zoneid = zoneid
 		self.node_object_in_it = node_object_in_it
+		self.zone_startcoord = init_coord
 
 	def get_zone_ID(self):
 		return self.zoneid
+
+	def get_init_coord(self):
+		return self.zone_startcoord
 
 	def get_nodes_in_zone(self):
 		return self.node_object_in_it

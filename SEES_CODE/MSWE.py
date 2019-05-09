@@ -1,4 +1,5 @@
-"""
+""" 
+CODED BY : PAPANI SAICHARAN
 this is the implementation of MSWE
 """
 import copy
@@ -54,6 +55,10 @@ def MSWE(Nalive,HNsalive,m,p,w,par1,k,per2,thzg):
 
 	if Nzg >= per2 * Nalive:
 		return ZAS_selection(k,Nalive,HNsalive)
+
+	for i in HNsalive:
+		if i.get_iszag():
+			i.discard_zag()
 
 	# NEW ZAG ELECTION
 	Hns1 = HNsalive[:]

@@ -1,4 +1,5 @@
-"""
+""" 
+CODED BY : PAPANI SAICHARAN
  This is a class of Network where class information is stored 
  in it.
 

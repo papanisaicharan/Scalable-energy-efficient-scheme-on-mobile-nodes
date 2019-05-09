@@ -1,4 +1,5 @@
-"""
+""" 
+CODED BY : PAPANI SAICHARAN
  This is a class of node where class information is stored 
  in it.
 
@@ -32,6 +33,8 @@ class Node():
 		self.iszag = False
 		self.iszas = False
 		self.zoneid = zoneid
+		# if we want to consider energy consumption while moving intilize this with Ed value according to requirement
+		self.Ed_energy = 10*math.pow(10,-10)
 		self.data = 4000
 		#threading.Timer(0.2, self.start_generate_data).start()
 		
@@ -46,6 +49,10 @@ class Node():
 	def getlocation(self):
 		return (self.xcoord,self.ycoord)
 
+	def set_location(self,xcord,ycord):
+		self.xcoord = xcord
+		self.ycoord = ycord
+
 	def get_zone_ID(self):
 		return self.zoneid
 
@@ -57,6 +64,13 @@ class Node():
 		
 	def get_e_residual(self):
 		return self.e_residual
+
+	def energyformoving(self):
+		if (self.e_residual >= self.Ed_energy):
+			self.e_residual = self.e_residual - self.Ed_energy
+			return False
+		else:
+			return True
 
 	def get_info_relay(self,relay_object,dist_to_relay):
 		self.nearest_relay_object = relay_object
@@ -79,7 +93,6 @@ class Node():
 		return self.iszag
 
 	def discard_zas(self):
-		del self.joins_list
 		self.iszas = False
 
 	def set_as_zas(self):
@@ -97,6 +110,8 @@ class Node():
 		sumofdistances = 0
 		for i in distance:
 			sumofdistances = sumofdistances+i
+		if sumofdistances == 0:
+			return 1
 		return((len(points)-1)/sumofdistances)
 
 	def distanceToNearestRelay(self):
@@ -115,19 +130,31 @@ class Node():
 	def get_energy_desipated_na(self,d0,dza):
 		e = float(d0)*(ETx_elec + Efs*(dza**2))
 		# print("at na sending : ",e)
+		p = self.e_residual
 		self.e_residual = self.e_residual - e
+		if self.e_residual <= 0:
+			self.dead =1
+			return p
 		return e
 
 	def get_energy_desipated_due_receiving(self,d0,numberofna):
 		e = float(d0)*(ERx_elec*float(numberofna) + Eda*float((numberofna+1)))
 		# print("at zas receiving",e)
+		p = self.e_residual
 		self.e_residual = self.e_residual - e
+		if self.e_residual <= 0:
+			self.dead = 1
+			return p
 		return e
 
 	def get_energy_desipated_at_za_due_tran(self,d0,drn):
 		eenergy = float(d0)*(ETx_elec+Efs*float((drn**2)))
 		# print("energy due to tran to rn : ",eenergy)
+		p = self.e_residual
 		self.e_residual = self.e_residual - eenergy
+		if self.e_residual <= 0:
+			self.dead = 1
+			return p
 		return eenergy
 
 	def add_data_from_sender(self,d):
@@ -135,9 +162,6 @@ class Node():
 			self.data = self.data + d
 
 	def transfer_data(self,reciver,numberofna):
-		# this is transfering from na to za or relay
-		# if data is greater than bit rate * timeslot then tranfer bit rate * timeslot
-		# and reduce the sent data else send whole data
 		d0 = self.data
 		self.data = 0
 		# adding the data to za or relay
@@ -146,9 +170,6 @@ class Node():
 		return self.get_energy_desipated_na(d0,dza) + reciver.get_energy_desipated_due_receiving(d0,numberofna)
 
 	def transfer_data_to_rn(self,reciver,nodesatza_na):
-		# this is transfering from na to za or relay
-		# if data is greater than bit rate * timeslot then tranfer bit rate * timeslot
-		# and reduce the sent data else send whole data
 		d0 = self.data
 		self.data = 0
 		# adding the data to za or relay

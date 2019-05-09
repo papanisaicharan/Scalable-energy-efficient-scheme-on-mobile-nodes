@@ -1,4 +1,5 @@
-"""
+""" 
+CODED BY : PAPANI SAICHARAN
  This is a class of EH_relay node where class information is stored 
  in it.
 
@@ -51,6 +52,10 @@ class EH_relay():
 			self.joins_list.append(node)
 		else:
 			self.joins_list_na.append(node)
+
+	def discard_nodes_of_tdma(self):
+		self.joins_list = []
+		self.joins_list_na = []
 
 	def get_registered_nodes_for_tdma(self):
 		return [self.joins_list,self.joins_list_na]
