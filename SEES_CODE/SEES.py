@@ -72,6 +72,7 @@ Einti = 0.5#float(input("Enter E1(initial energy) : "))
 # --------------------------------------------- end  ----------------------------------------------------#
 
 # --------------------   we need to validate theta and gamma values and find beta constant --------------#
+# if wanted to apply for n=1 remove the below condition
 if((gamma /  (2*(n-1)) ) > theta):
 	print("validated theta and gamma values")
 	# finding gamma values
@@ -441,7 +442,7 @@ dount = 0
 zp = total_energy_of_all_nodes
 dp = 0
 # file that takes output
-f = open("node_energies2000(3).csv", "a")
+f = open("HNmobile1.csv", "a")
 h = 0 # for counting nimber of rounds
 f.write("round,total disipated energy for hetergeneous nodes,residual energy ,number of nodes alive,Total Energy consumed at each round,TotalEnergyconsumed till this round,throughput\n")
 print(zp)
