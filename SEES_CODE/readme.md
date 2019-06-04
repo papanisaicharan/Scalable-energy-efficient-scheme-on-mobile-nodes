@@ -1,4 +1,4 @@
-## note: erase the content of node_energies2000(3).csv before running the stimulation.(stimulation results will be appended to it)
+## note: erase the content of .csv before running the stimulation.(stimulation results will be appended to it)
 
 * get all the libraries installed.
 * open cmd and open this directory in that.
