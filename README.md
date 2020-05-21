@@ -4,4 +4,4 @@ Link to SEES official paper: https://drive.google.com/open?id=0B6DocT_qEp8cUEw1X
 
 'SEES CODE' folder contains complete python implementation of SEES protocol.
 
-First run initialisation.py, this will store the results in csv format then run plotting.py to get the simulation.
+First run initialisation.py, this will store the results in csv format(shows simulation too) then run plotting.py to get the graphs.
